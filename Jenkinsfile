@@ -7,27 +7,26 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Your checkout steps here
-                checkout scm
+                checkout scm // Checkout source code
             }
         }
         stage('Build') {
             steps {
                 echo 'Building...'
-                // Your build steps here
+                // Your build commands here
             }
         }
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    // Execute the sonar-scanner command
                     sh 'sonar-scanner -Dsonar.projectKey=test-project -Dsonar.sources=src -Dsonar.host.url=http://sonarqube:9000'
                 }
             }
         }
         stage('Quality Gate') {
             steps {
-                // Your quality gate steps here
+                echo 'Checking quality gate...'
+                // Implement your quality gate checking logic here
             }
         }
     }

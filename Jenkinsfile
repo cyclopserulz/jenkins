@@ -1,32 +1,27 @@
 pipeline {
     agent any
-    environment {
-        SONAR_SCANNER_HOME = '/opt/sonar-scanner'
-        PATH = "${SONAR_SCANNER_HOME}/bin:${env.PATH}"
-    }
+
     stages {
-        stage('Checkout') {
+        stage("Checkout") {
             steps {
-                checkout scm // Checkout source code
+                checkout scm
             }
         }
-        stage('Build') {
+        stage("Build") {
             steps {
-                echo 'Building...'
-                // Your build commands here
+                sh "javac src/main/java/com/example/*.java"
             }
         }
-        stage('SonarQube Analysis') {
+        stage("SonarQube Analysis") {
             steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh 'sonar-scanner -Dsonar.projectKey=test-project -Dsonar.sources=src -Dsonar.host.url=http://sonarqube:9000'
+                withSonarQubeEnv("SonarQube") {
+                    sh "sonar-scanner -Dsonar.projectKey=test-project -Dsonar.sources=src/main/java -Dsonar.host.url=http://sonarqube:9000"
                 }
             }
         }
-        stage('Quality Gate') {
+        stage("Test") {
             steps {
-                echo 'Checking quality gate...'
-                // Implement your quality gate checking logic here
+                sh "java -cp src/main/java org.junit.runner.JUnitCore com.example.HelloWorldTest"
             }
         }
     }

@@ -15,6 +15,7 @@ pipeline {
         stage("SonarQube Analysis") {
             steps {
                 withSonarQubeEnv("SonarQube") {
+                    sh "whoami"
                     sh "sonar-scanner -Dsonar.projectKey=test-project -Dsonar.sources=src/main/java -Dsonar.host.url=http://sonarqube:9000"
                 }
             }

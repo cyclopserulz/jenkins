@@ -1,8 +1,7 @@
-# Create a sample Java file
-echo 'package com.example;
+package com.example;
 
 public class HelloWorld {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
     }
-}'
+}

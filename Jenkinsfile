@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        SONAR_SCANNER_HOME = '/opt/sonar-scanner/sonar-scanner-5.0.1.3006-linux/bin'
+        PATH = "${env.PATH}:${SONAR_SCANNER_HOME}"
+    }
+
     stages {
         stage("Checkout") {
             steps {
@@ -15,7 +20,6 @@ pipeline {
         stage("SonarQube Analysis") {
             steps {
                 withSonarQubeEnv("SonarQube") {
-                    sh "whoami"
                     sh "sonar-scanner -Dsonar.projectKey=test-project -Dsonar.sources=src/main/java -Dsonar.host.url=http://sonarqube:9000"
                 }
             }

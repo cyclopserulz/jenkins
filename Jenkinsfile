@@ -27,6 +27,7 @@ pipeline {
         stage("Test") {
             steps {
                 sh "mvn clean compile"
+                sh "mvn test-compile"
                 sh "java -cp src/main/java org.junit.runner.JUnitCore com.example.HelloWorldTest"
             }
         }

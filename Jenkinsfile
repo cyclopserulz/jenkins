@@ -28,7 +28,7 @@ pipeline {
             steps {
                 sh "mvn clean compile"
                 sh "mvn test-compile"
-                sh "java -cp src/main/java org.junit.runner.JUnitCore com.example.HelloWorldTest"
+                sh "java -cp target/test-classes:target/dependency/* org.junit.platform.console.ConsoleLauncher --scan-class-path"
             }
         }
     }

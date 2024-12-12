@@ -26,9 +26,7 @@ pipeline {
         }
         stage("Test") {
             steps {
-                sh "mvn clean compile"
-                sh "mvn test-compile"
-                sh "java -cp target/test-classes:target/dependency/* org.junit.platform.console.ConsoleLauncher --scan-class-path"
+                sh "mvn clean test"
             }
         }
     }
